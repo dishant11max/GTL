@@ -18,13 +18,13 @@ const HomePage = () => {
     <NeoLayout>
       {/* Hero Section */}
       <header className="pt-8 pb-20 px-6 container mx-auto text-center max-w-5xl">
-        <div className="inline-block mb-6 px-4 py-2 bg-[#FF9933] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-[-2deg]">
+        <div className="inline-block mb-6 px-4 py-2 bg-[#FF8C00] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-[-2deg]">
           NOW LIVE IN MUMBAI & DELHI
         </div>
         <h1 className="text-6xl md:text-8xl font-black leading-[0.9] mb-8 tracking-tighter uppercase">
           India's Fastest <br />
           <span
-            className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9933] via-black to-[#138808] stroke-black"
+            className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF8C00] via-black to-[#22C55E] stroke-black"
             style={{ WebkitTextStroke: "2px black" }}
           >
             Logistics Network
@@ -37,10 +37,7 @@ const HomePage = () => {
         </p>
 
         <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-          <NeoButton
-            onClick={() => navigate("/driver/login")}
-            className="w-full md:w-auto text-xl py-4 px-8"
-          >
+          <NeoButton className="w-full md:w-auto text-xl py-4 px-8">
             JOIN AS DRIVER <Truck className="w-6 h-6" />
           </NeoButton>
           <NeoButton
@@ -74,7 +71,7 @@ const HomePage = () => {
               icon: <MapPin className="w-10 h-10" />,
               label: "CITIES COVERED",
               value: "50+",
-              color: "bg-[#FF9933]",
+              color: "bg-[#FF8C00]",
             },
             {
               icon: <IndianRupee className="w-10 h-10" />,
@@ -86,7 +83,7 @@ const HomePage = () => {
               icon: <ShieldCheck className="w-10 h-10" />,
               label: "SAFE TRIPS",
               value: "100%",
-              color: "bg-[#138808]",
+              color: "bg-[#22C55E]",
               contentClass: "text-white",
             },
           ].map((stat, index) => (
@@ -120,10 +117,10 @@ const HomePage = () => {
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b-2 border-gray-700 pb-6">
             <h2 className="text-5xl md:text-6xl font-black uppercase">
               Operating <br />
-              <span className="text-[#FF9933]">Hubs</span>
+              <span className="text-[#FF8C00]">Hubs</span>
             </h2>
             <div className="text-right mt-4 md:mt-0">
-              <NeoButton variant="primary" onClick={() => navigate("/hubs")}>
+              <NeoButton variant="primary">
                 VIEW ALL HUBS <ArrowRight className="w-4 h-4" />
               </NeoButton>
             </div>
@@ -176,3 +173,5 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+

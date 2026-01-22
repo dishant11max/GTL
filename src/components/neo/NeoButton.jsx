@@ -13,10 +13,10 @@ const NeoButton = ({
 
   const variants = {
     primary:
-      "bg-[#FF9933] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-black",
+      "bg-[#FF8C00] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-black",
     secondary: "bg-white hover:bg-gray-50 text-black",
     dark: "bg-black text-white hover:bg-gray-800 shadow-[4px_4px_0px_0px_rgba(128,128,128,1)]",
-    success: "bg-[#138808] text-white hover:bg-[#138808]/90",
+    success: "bg-[#22C55E] text-white hover:bg-[#22C55E]/90",
   };
 
   return (
@@ -31,3 +31,5 @@ const NeoButton = ({
 };
 
 export default NeoButton;
+
+

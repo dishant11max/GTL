@@ -6,14 +6,15 @@ const NeoLayout = ({ children }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white font-['Space_Grotesk'] text-black selection:bg-[#FF9933] selection:text-white flex flex-col">
+    <div className="min-h-screen bg-white font-['Space_Grotesk'] text-black selection:bg-[#FF8C00] selection:text-white flex flex-col">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-50 border-b-4 border-black bg-white px-6 py-4 flex justify-between items-center">
+      <nav className="fixed top-0 left-0 w-full z-50 border-b-4 border-black bg-white px-6 py-4 flex items-center">
+        {/* Logo - Left */}
         <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <div className="w-10 h-10 bg-[#FF9933] border-2 border-black flex items-center justify-center text-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="w-10 h-10 bg-[#FF8C00] border-2 border-black flex items-center justify-center text-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             🇮🇳
           </div>
           <span className="text-2xl font-bold tracking-tighter uppercase hidden md:block">
@@ -21,52 +22,29 @@ const NeoLayout = ({ children }) => {
           </span>
         </div>
 
-        <div className="hidden md:flex gap-6 font-bold uppercase tracking-tight items-center">
-          <button
-            onClick={() => navigate("/")}
-            className="hover:underline decoration-4 underline-offset-4 decoration-[#FF9933]"
-          >
+        {/* Navigation - Center */}
+        <div className="hidden md:flex gap-6 font-bold uppercase tracking-tight items-center absolute left-1/2 transform -translate-x-1/2">
+          <button className="hover:underline decoration-4 underline-offset-4 decoration-[#FF8C00]">
             Home
           </button>
-          <button
-            onClick={() => navigate("/services")}
-            className="hover:underline decoration-4 underline-offset-4 decoration-[#FF9933]"
-          >
+          <button className="hover:underline decoration-4 underline-offset-4 decoration-[#FF8C00]">
             Services
           </button>
-          <button
-            onClick={() => navigate("/hubs")}
-            className="hover:underline decoration-4 underline-offset-4 decoration-[#FF9933]"
-          >
+          <button className="hover:underline decoration-4 underline-offset-4 decoration-[#FF8C00]">
             Hubs
           </button>
         </div>
 
-        <div className="flex gap-4">
-          <div className="hidden md:flex gap-4 mr-4 border-r-2 border-black pr-4 items-center">
-            <button
-              onClick={() => navigate("/admin/orders")}
-              className="font-bold hover:underline decoration-2 underline-offset-4 text-sm flex items-center"
-            >
-              ADMIN BOARD
-            </button>
-            <button
-              onClick={() => navigate("/driver/trip")}
-              className="font-bold hover:underline decoration-2 underline-offset-4 text-sm flex items-center"
-            >
-              DRIVER APP
-            </button>
-          </div>
+        {/* Action Buttons - Right */}
+        <div className="flex gap-4 ml-auto">
           <NeoButton
             variant="secondary"
-            onClick={() => navigate("/driver/login")}
             className="hidden md:flex py-2 px-4 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
           >
             Driver Login
           </NeoButton>
           <NeoButton
             variant="dark"
-            onClick={() => navigate("/admin/login")}
             className="py-2 px-4 shadow-[3px_3px_0px_0px_rgba(128,128,128,1)]"
           >
             Admin
@@ -78,7 +56,7 @@ const NeoLayout = ({ children }) => {
       <main className="flex-grow pt-24 pb-20">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-[#FF9933] border-t-4 border-black py-12 px-6 text-center mt-auto">
+      <footer className="bg-[#FF8C00] border-t-4 border-black py-12 px-6 text-center mt-auto">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-left">
             <div>
@@ -89,7 +67,7 @@ const NeoLayout = ({ children }) => {
               <h3 className="font-black text-xl mb-4 uppercase">Links</h3>
               <ul className="space-y-2 font-bold">
                 <li>
-                  <a href="/driver/login" className="hover:underline">
+                  <a href="#" className="hover:underline">
                     Join as Driver
                   </a>
                 </li>

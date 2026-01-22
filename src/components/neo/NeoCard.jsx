@@ -18,3 +18,5 @@ const NeoCard = ({ children, className, hoverEffect = true, ...props }) => {
 };
 
 export default NeoCard;
+
+
