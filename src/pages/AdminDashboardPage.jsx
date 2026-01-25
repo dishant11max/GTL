@@ -17,10 +17,12 @@ import {
   MapPin,
   Truck,
   LogOut,
+  BarChart3,
 } from "lucide-react";
 import NeoLayout from "@/components/neo/NeoLayout";
 import NeoCard from "@/components/neo/NeoCard";
 import NeoButton from "@/components/neo/NeoButton";
+import AnalyticsDashboard from "@/components/neo/AnalyticsDashboard";
 import { supabase } from "@/lib/supabase";
 
 const AdminDashboardPage = () => {
@@ -55,6 +57,12 @@ const AdminDashboardPage = () => {
   };
 
   const fetchData = async () => {
+    // Analytics has its own data or handles loading internal mock data, so we can skip fetch for it
+    if (activeTab === "analytics") {
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     try {
       if (activeTab === "quotes") {
@@ -131,6 +139,11 @@ const AdminDashboardPage = () => {
               </div>
               <div className="py-2">
                 <SidebarItem id="quotes" label="Quotes" icon={FileText} />
+                <SidebarItem
+                  id="analytics"
+                  label="Analytics"
+                  icon={BarChart3}
+                />
                 <SidebarItem id="drivers" label="Drivers" icon={Users} />
                 <SidebarItem
                   id="contacts"
@@ -157,6 +170,7 @@ const AdminDashboardPage = () => {
                 {activeTab === "quotes" && "Quote Requests"}
                 {activeTab === "drivers" && "Driver Pilots"}
                 {activeTab === "contacts" && "Contact Messages"}
+                {activeTab === "analytics" && "Smart Analytics"}
               </h1>
               <NeoButton
                 variant="secondary"
@@ -166,6 +180,9 @@ const AdminDashboardPage = () => {
                 Refresh
               </NeoButton>
             </div>
+
+            {/* ANALYTICS TAB */}
+            {activeTab === "analytics" && <AnalyticsDashboard />}
 
             {loading ? (
               <div className="text-center py-20">
