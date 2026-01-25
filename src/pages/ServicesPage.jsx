@@ -121,6 +121,77 @@ const ServicesPage = () => {
             </NeoCard>
           ))}
         </div>
+
+        {/* Smart Logistics Tech Section */}
+        <div className="mb-20">
+          <div className="mb-12 border-b-4 border-black pb-8">
+            <h2 className="text-4xl md:text-6xl font-black uppercase mb-4">
+              Smart <span className="text-[#22C55E]">Logistics Tech</span>
+            </h2>
+            <p className="text-xl font-medium max-w-2xl">
+              Leveraging AI and IoT to drive efficiency, safety, and
+              sustainability in every mile.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* AI Route Optimization */}
+            <NeoCard className="bg-white hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div className="w-16 h-16 bg-black text-white flex items-center justify-center mb-4 border-2 border-black">
+                <Zap className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-black uppercase mb-2">
+                AI Route Optimization
+              </h3>
+              <p className="font-medium text-gray-600">
+                Algorithms that predict traffic and reduce travel time by up to
+                25%.
+              </p>
+            </NeoCard>
+
+            {/* Real-time GPS */}
+            <NeoCard className="bg-white hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div className="w-16 h-16 bg-[#FF8C00] text-black flex items-center justify-center mb-4 border-2 border-black">
+                <div className="relative">
+                  <div className="absolute w-3 h-3 bg-white rounded-full animate-ping top-0 right-0"></div>
+                  <Truck className="w-8 h-8" />
+                </div>
+              </div>
+              <h3 className="text-xl font-black uppercase mb-2">
+                Real-Time GPS
+              </h3>
+              <p className="font-medium text-gray-600">
+                Live vehicle tracking with millisecond latency for precise ETA.
+              </p>
+            </NeoCard>
+
+            {/* Fuel Analytics */}
+            <NeoCard className="bg-white hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div className="w-16 h-16 bg-[#22C55E] text-white flex items-center justify-center mb-4 border-2 border-black">
+                <Thermometer className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-black uppercase mb-2">
+                Fuel Analytics
+              </h3>
+              <p className="font-medium text-gray-600">
+                IoT sensors helping reduce fuel wastage and carbon footprint.
+              </p>
+            </NeoCard>
+
+            {/* Driver Performance */}
+            <NeoCard className="bg-white hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div className="w-16 h-16 bg-white text-black flex items-center justify-center mb-4 border-2 border-black">
+                <Package className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-black uppercase mb-2">
+                Driver Scorecard
+              </h3>
+              <p className="font-medium text-gray-600">
+                Gamified performance metrics to ensure safety and efficiency.
+              </p>
+            </NeoCard>
+          </div>
+        </div>
       </div>
     </NeoLayout>
   );
