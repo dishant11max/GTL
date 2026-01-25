@@ -137,6 +137,7 @@ const NeoLayout = ({ children }) => {
           <NeoButton
             variant="dark"
             className="py-2 px-4 shadow-[4px_4px_0px_0px_rgba(128,128,128,1)] text-sm"
+            onClick={() => navigate("/admin")}
           >
             Admin
           </NeoButton>
@@ -217,7 +218,10 @@ const NeoLayout = ({ children }) => {
                 <NeoButton
                   variant="dark"
                   className="w-full py-3"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    navigate("/admin");
+                    setMobileMenuOpen(false);
+                  }}
                 >
                   Admin
                 </NeoButton>
