@@ -69,16 +69,19 @@ const AboutPage = () => {
           <div className="max-w-2xl mx-auto">
             <NeoCard className="bg-white text-black p-8">
               <div className="flex flex-col md:flex-row items-center gap-8">
-                {/* Avatar */}
-                <div className="w-32 h-32 bg-gradient-to-br from-[#FF8C00] to-[#22C55E] border-4 border-black flex items-center justify-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex-shrink-0">
-                  <Code className="w-16 h-16 text-white" />
+                {/* Avatar - Using GitHub Profile Picture */}
+                <div className="w-32 h-32 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex-shrink-0 overflow-hidden">
+                  <img
+                    src="https://github.com/dishant11max.png"
+                    alt="Dishant Savadia"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 {/* Info */}
                 <div className="text-center md:text-left flex-1">
                   <h3 className="text-3xl font-black uppercase mb-2">
-                    {/* UPDATE YOUR NAME HERE */}
-                    The Developer
+                    Dishant Savadia
                   </h3>
                   <p className="text-lg font-bold text-[#FF8C00] mb-4">
                     Founder & Full Stack Developer
@@ -92,7 +95,7 @@ const AboutPage = () => {
                   {/* Social Links */}
                   <div className="flex gap-4 justify-center md:justify-start">
                     <a
-                      href="https://github.com/YOUR_USERNAME"
+                      href="https://github.com/dishant11max"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-4 py-2 bg-black text-white border-2 border-black font-bold hover:bg-white hover:text-black transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
@@ -101,7 +104,7 @@ const AboutPage = () => {
                       GitHub
                     </a>
                     <a
-                      href="https://linkedin.com/in/YOUR_USERNAME"
+                      href="https://www.linkedin.com/in/dishant-savadia-b38b0a289/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-4 py-2 bg-[#0077B5] text-white border-2 border-black font-bold hover:bg-white hover:text-[#0077B5] transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
