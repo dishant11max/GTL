@@ -63,7 +63,7 @@ const AdminLoginPage = () => {
     setError(null);
 
     // 1. Verify Secret Code (Simple security for MVP)
-    const ADMIN_SECRET = "DISPATCHLY_ADMIN_2026";
+    const ADMIN_SECRET = "GTL_ADMIN_2026";
     if (formData.secret !== ADMIN_SECRET) {
       setError("Invalid Admin Secret Code.");
       setLoading(false);
@@ -167,7 +167,7 @@ const AdminLoginPage = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="admin@dispatchly.in"
+                placeholder="admin@gtl.in"
                 className="w-full bg-gray-50 border-2 border-black p-4 pl-12 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow"
                 value={formData.email}
                 onChange={handleChange}

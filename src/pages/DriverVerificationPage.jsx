@@ -171,7 +171,7 @@ const DriverVerificationPage = () => {
               <p className="text-xs font-bold text-gray-600 leading-relaxed">
                 By submitting this form, you consent to the verification of your
                 identity and banking details. False information may lead to
-                permanent suspension from the Dispatchly Pilot Network.
+                permanent suspension from the GTL Pilot Network.
               </p>
             </div>
 

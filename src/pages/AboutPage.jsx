@@ -22,7 +22,7 @@ const AboutPage = () => {
             We move <span className="text-[#FF8C00]">India</span>
           </h1>
           <p className="text-xl md:text-2xl font-medium max-w-3xl mx-auto text-gray-300">
-            Dispatchly is building the operating system for modern logistics. We
+            GTL is building the operating system for modern logistics. We
             connect businesses with verified pilots through technology.
           </p>
         </div>
@@ -87,7 +87,7 @@ const AboutPage = () => {
                     Founder & Full Stack Developer
                   </p>
                   <p className="font-medium text-gray-600 mb-6">
-                    Building Dispatchly from ground up — designing, coding, and
+                    Building GTL from ground up — designing, coding, and
                     shipping every feature. Passionate about creating technology
                     that empowers businesses and drivers alike.
                   </p>

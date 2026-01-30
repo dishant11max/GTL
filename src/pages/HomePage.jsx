@@ -192,7 +192,7 @@ const HomePage = () => {
             Trusted By <span className="text-[#FF8C00]">Businesses</span>
           </h2>
           <p className="text-lg font-medium">
-            Join 500+ companies shipping with Dispatchly
+            Join 500+ companies shipping with GTL
           </p>
         </div>
 
@@ -264,7 +264,7 @@ const HomePage = () => {
                 READY TO <span className="text-[#FF8C00]">SHIP?</span>
               </h2>
               <p className="text-xl font-medium mb-6 leading-relaxed">
-                Join thousands of businesses already using Dispatchly for their
+                Join thousands of businesses already using GTL for their
                 logistics needs. Fast, reliable, and transparent.
               </p>
               <div className="flex flex-wrap gap-4 font-bold">
@@ -292,9 +292,7 @@ const HomePage = () => {
               <NeoButton
                 variant="secondary"
                 className="w-full text-xl py-4 px-8"
-                onClick={() =>
-                  (window.location.href = "mailto:sales@dispatchly.in")
-                }
+                onClick={() => (window.location.href = "mailto:sales@gtl.in")}
               >
                 TALK TO SALES
               </NeoButton>

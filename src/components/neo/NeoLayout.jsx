@@ -58,7 +58,7 @@ const NeoLayout = ({ children }) => {
             IN
           </div>
           <span className="text-2xl font-bold tracking-tighter uppercase hidden md:block">
-            Dispatchly
+            GTL
           </span>
         </div>
 
@@ -236,10 +236,8 @@ const NeoLayout = ({ children }) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 text-left">
             {/* Brand */}
             <div>
-              <h3 className="font-black text-2xl mb-4 uppercase">Dispatchly</h3>
-              <p className="font-medium mb-4">
-                India's modern logistics network.
-              </p>
+              <h3 className="font-black text-2xl mb-4 uppercase">GTL</h3>
+              <p className="font-medium mb-4">Global Transport Limited.</p>
               {/* Social Icons */}
               <div className="flex gap-3">
                 <a
@@ -329,7 +327,7 @@ const NeoLayout = ({ children }) => {
             {/* Contact */}
             <div>
               <h3 className="font-black text-xl mb-4 uppercase">Contact</h3>
-              <p className="font-medium">support@dispatchly.in</p>
+              <p className="font-medium">support@gtl.in</p>
               <p className="font-medium">+91 80 1234 5678</p>
               <p className="font-medium mt-4 text-sm opacity-80">
                 Mon - Sat: 9AM - 9PM IST
@@ -340,7 +338,7 @@ const NeoLayout = ({ children }) => {
           {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t-2 border-black/20">
             <div className="font-mono text-sm opacity-80">
-              © 2026 DISPATCHLY INDIA. All rights reserved.
+              © 2026 GTL INDIA. All rights reserved.
             </div>
             <div className="flex gap-6 text-sm font-bold">
               <button className="hover:underline opacity-80 hover:opacity-100">

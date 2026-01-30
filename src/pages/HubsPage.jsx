@@ -38,7 +38,7 @@ const HubsPage = () => {
               Network <span className="text-[#FF8C00]">Status</span>
             </h1>
             <p className="text-xl font-medium">
-              Live operational status of Dispatchly hubs across India.
+              Live operational status of GTL hubs across India.
             </p>
           </div>
           <div className="bg-black text-[#22C55E] border-2 border-black p-4 font-mono font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]">

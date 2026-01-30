@@ -93,7 +93,7 @@ const ContactPage = () => {
         "We have Tata Ace (0.75 MT), Bolero Pickup (1.5 MT), 14ft-22ft trucks (4-9 MT), 32ft containers (14-21 MT), and trailers (28 MT). Choose based on your cargo size and weight.",
     },
     {
-      question: "How do I become a Dispatchly driver?",
+      question: "How do I become a GTL driver?",
       answer:
         "Click on 'Driver Login' and register with your mobile number. You'll need to submit your Aadhar, Driving License, Vehicle RC, and bank details. Verification takes 24-48 hours.",
     },
@@ -240,10 +240,8 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <h3 className="font-black uppercase mb-1">Email Us</h3>
-                  <p className="font-medium">support@dispatchly.in</p>
-                  <p className="font-medium text-gray-500">
-                    sales@dispatchly.in
-                  </p>
+                  <p className="font-medium">support@gtl.in</p>
+                  <p className="font-medium text-gray-500">sales@gtl.in</p>
                 </div>
               </NeoCard>
 
@@ -279,9 +277,7 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <h3 className="font-black uppercase mb-1">Head Office</h3>
-                  <p className="font-medium">
-                    Dispatchly Technologies Pvt. Ltd.
-                  </p>
+                  <p className="font-medium">GTL Technologies Pvt. Ltd.</p>
                   <p className="font-medium text-gray-500">
                     Mumbai, Maharashtra, India
                   </p>
