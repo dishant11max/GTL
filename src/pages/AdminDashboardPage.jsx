@@ -23,47 +23,40 @@ import NeoLayout from "@/components/neo/NeoLayout";
 import NeoCard from "@/components/neo/NeoCard";
 import NeoButton from "@/components/neo/NeoButton";
 import AnalyticsDashboard from "@/components/neo/AnalyticsDashboard";
+import OperationsDashboard from "@/components/neo/OperationsDashboard";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/context/AuthContext";
 
 const AdminDashboardPage = () => {
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState("quotes");
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [dataLoading, setDataLoading] = useState(false);
   const [quotes, setQuotes] = useState([]);
   const [drivers, setDrivers] = useState([]);
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    checkAuth();
-  }, [activeTab]);
-
-  const checkAuth = async () => {
-    try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        navigate("/admin-login");
-        return;
-      }
-      setUser(user);
-      fetchData();
-    } catch (err) {
-      console.error("Auth error:", err);
+    // If auth is done loading and no user, fetch redirect
+    if (!authLoading && !user) {
       navigate("/admin-login");
     }
-  };
+  }, [authLoading, user, navigate]);
+
+  useEffect(() => {
+    if (user) {
+      fetchData();
+    }
+  }, [user, activeTab]);
 
   const fetchData = async () => {
-    // Analytics has its own data or handles loading internal mock data, so we can skip fetch for it
-    if (activeTab === "analytics") {
-      setLoading(false);
+    // Analytics and Operations have their own data or handles loading internal mock data, so we can skip fetch for it
+    if (activeTab === "analytics" || activeTab === "operations") {
+      setDataLoading(false);
       return;
     }
 
-    setLoading(true);
+    setDataLoading(true);
     try {
       if (activeTab === "quotes") {
         const { data } = await supabase
@@ -87,7 +80,7 @@ const AdminDashboardPage = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setLoading(false);
+      setDataLoading(false);
     }
   };
 
@@ -144,6 +137,7 @@ const AdminDashboardPage = () => {
                   label="Analytics"
                   icon={BarChart3}
                 />
+                <SidebarItem id="operations" label="Live Ops" icon={MapPin} />
                 <SidebarItem id="drivers" label="Drivers" icon={Users} />
                 <SidebarItem
                   id="contacts"
@@ -171,6 +165,7 @@ const AdminDashboardPage = () => {
                 {activeTab === "drivers" && "Driver Pilots"}
                 {activeTab === "contacts" && "Contact Messages"}
                 {activeTab === "analytics" && "Smart Analytics"}
+                {activeTab === "operations" && "Real-Time Operations"}
               </h1>
               <NeoButton
                 variant="secondary"
@@ -184,7 +179,10 @@ const AdminDashboardPage = () => {
             {/* ANALYTICS TAB */}
             {activeTab === "analytics" && <AnalyticsDashboard />}
 
-            {loading ? (
+            {/* OPERATIONS TAB */}
+            {activeTab === "operations" && <OperationsDashboard />}
+
+            {dataLoading ? (
               <div className="text-center py-20">
                 <div className="animate-spin w-12 h-12 border-4 border-[#FF8C00] border-t-transparent rounded-full mx-auto mb-4"></div>
                 <p className="font-bold text-gray-500">Loading data...</p>

@@ -17,9 +17,11 @@ const AdminLoginPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    secret: "",
   });
 
   const handleChange = (e) => {
@@ -40,11 +42,53 @@ const AdminLoginPage = () => {
 
       if (error) throw error;
 
+      // Check role
+      if (data.user?.user_metadata?.role !== "admin") {
+        throw new Error("Access denied: Not an administrator.");
+      }
+
       // Navigate to admin dashboard on success
       navigate("/admin");
     } catch (err) {
       console.error("Login error:", err);
       setError(err.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    // 1. Verify Secret Code (Simple security for MVP)
+    const ADMIN_SECRET = "DISPATCHLY_ADMIN_2026";
+    if (formData.secret !== ADMIN_SECRET) {
+      setError("Invalid Admin Secret Code.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // 2. Create User with 'admin' role
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            role: "admin",
+          },
+        },
+      });
+
+      if (error) throw error;
+
+      // Navigate to dashboard
+      navigate("/admin");
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError(err.message || "Signup failed.");
     } finally {
       setLoading(false);
     }
@@ -79,6 +123,31 @@ const AdminLoginPage = () => {
           </p>
         </div>
 
+        <div className="flex mb-6 border-4 border-black">
+          <button
+            className={`flex-1 py-3 font-black uppercase text-center transition-colors ${
+              isLogin ? "bg-black text-white" : "bg-gray-100 hover:bg-gray-200"
+            }`}
+            onClick={() => {
+              setIsLogin(true);
+              setError(null);
+            }}
+          >
+            Login
+          </button>
+          <button
+            className={`flex-1 py-3 font-black uppercase text-center transition-colors ${
+              !isLogin ? "bg-black text-white" : "bg-gray-100 hover:bg-gray-200"
+            }`}
+            onClick={() => {
+              setIsLogin(false);
+              setError(null);
+            }}
+          >
+            Create Admin
+          </button>
+        </div>
+
         {/* Error Message */}
         {error && (
           <div className="bg-red-50 border-4 border-red-500 p-4 mb-6 flex items-center gap-3">
@@ -87,7 +156,10 @@ const AdminLoginPage = () => {
           </div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form
+          onSubmit={isLogin ? handleLogin : handleSignup}
+          className="space-y-4"
+        >
           <div className="space-y-2">
             <label className="font-black text-sm uppercase">Email</label>
             <div className="relative">
@@ -120,6 +192,29 @@ const AdminLoginPage = () => {
             </div>
           </div>
 
+          {!isLogin && (
+            <div className="space-y-2">
+              <label className="font-black text-sm uppercase">
+                Admin Secret Code
+              </label>
+              <div className="relative">
+                <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <input
+                  type="password"
+                  name="secret"
+                  placeholder="Enter secret to create admin"
+                  className="w-full bg-gray-50 border-2 border-black p-4 pl-12 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow"
+                  value={formData.secret || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <p className="text-xs text-gray-500 font-bold">
+                * Required to prevent unauthorized admin creation.
+              </p>
+            </div>
+          )}
+
           <NeoButton
             type="submit"
             variant="dark"
@@ -129,11 +224,11 @@ const AdminLoginPage = () => {
             {loading ? (
               <>
                 <Loader2 className="w-6 h-6 animate-spin mr-2" />
-                verifying...
+                {isLogin ? "verifying..." : "registering..."}
               </>
             ) : (
               <>
-                ACCESS DASHBOARD
+                {isLogin ? "ACCESS DASHBOARD" : "REGISTER ADMIN"}
                 <ArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform" />
               </>
             )}

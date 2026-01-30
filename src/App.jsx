@@ -9,23 +9,26 @@ import AdminDashboardPage from "@/pages/AdminDashboardPage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import ContactPage from "@/pages/ContactPage";
 import ScrollToTop from "@/components/ScrollToTop";
+import { AuthProvider } from "@/context/AuthContext";
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/hubs" element={<HubsPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/driver-login" element={<DriverLoginPage />} />
-        <Route path="/driver-dashboard" element={<DriverDashboardPage />} />
-        <Route path="/admin" element={<AdminDashboardPage />} />
-        <Route path="/admin-login" element={<AdminLoginPage />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/hubs" element={<HubsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/driver-login" element={<DriverLoginPage />} />
+          <Route path="/driver-dashboard" element={<DriverDashboardPage />} />
+          <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/admin-login" element={<AdminLoginPage />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

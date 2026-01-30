@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NeoButton from "./NeoButton";
-import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/context/AuthContext";
 
 // Simple SVG icons for social media
 const TwitterIcon = () => (
@@ -26,23 +26,7 @@ const NeoLayout = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
-
-  // Check auth state on mount
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user);
-    });
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const { user, loading } = useAuth();
 
   // Navigation items with paths
   const navItems = [
@@ -117,30 +101,42 @@ const NeoLayout = ({ children }) => {
 
         {/* Action Buttons - Right - Desktop Only */}
         <div className="hidden md:flex gap-4 ml-auto">
-          {user ? (
-            <NeoButton
-              variant="secondary"
-              className="py-2 px-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-sm"
-              onClick={() => navigate("/driver-dashboard")}
-            >
-              Dashboard
-            </NeoButton>
-          ) : (
-            <NeoButton
-              variant="secondary"
-              className="py-2 px-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-sm"
-              onClick={() => navigate("/driver-login")}
-            >
-              Driver Login
-            </NeoButton>
+          {!loading && (
+            <>
+              {/* Driver Button Logic */}
+              {!user ? (
+                /* Guest: Show Driver Login */
+                <NeoButton
+                  variant="secondary"
+                  className="py-2 px-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-sm"
+                  onClick={() => navigate("/driver-login")}
+                >
+                  Driver Login
+                </NeoButton>
+              ) : user?.user_metadata?.role === "driver" ? (
+                /* Driver: Show Dashboard */
+                <NeoButton
+                  variant="secondary"
+                  className="py-2 px-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-sm"
+                  onClick={() => navigate("/driver-dashboard")}
+                >
+                  Dashboard
+                </NeoButton>
+              ) : /* Admin: Show Nothing (Driver Login Disappears) */
+              null}
+
+              {/* Admin Button Logic - Hide if Driver */}
+              {user?.user_metadata?.role !== "driver" && (
+                <NeoButton
+                  variant="dark"
+                  className="py-2 px-4 shadow-[4px_4px_0px_0px_rgba(128,128,128,1)] text-sm"
+                  onClick={() => navigate("/admin")}
+                >
+                  Admin
+                </NeoButton>
+              )}
+            </>
           )}
-          <NeoButton
-            variant="dark"
-            className="py-2 px-4 shadow-[4px_4px_0px_0px_rgba(128,128,128,1)] text-sm"
-            onClick={() => navigate("/admin")}
-          >
-            Admin
-          </NeoButton>
         </div>
       </nav>
 
