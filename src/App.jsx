@@ -4,6 +4,7 @@ import ServicesPage from "@/pages/ServicesPage";
 import HubsPage from "@/pages/HubsPage";
 import AboutPage from "@/pages/AboutPage";
 import DriverLoginPage from "@/pages/DriverLoginPage";
+import DriverVerificationPage from "@/pages/DriverVerificationPage";
 import DriverDashboardPage from "@/pages/DriverDashboardPage";
 import AdminDashboardPage from "@/pages/AdminDashboardPage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
@@ -23,6 +24,10 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/driver-login" element={<DriverLoginPage />} />
+          <Route
+            path="/driver-verification"
+            element={<DriverVerificationPage />}
+          />
           <Route path="/driver-dashboard" element={<DriverDashboardPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path="/admin-login" element={<AdminLoginPage />} />

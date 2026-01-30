@@ -16,6 +16,11 @@ const HubsPage = () => {
     { city: "CHENNAI", fleet: "1400+", vol: "95T", sla: "99.4%" },
     { city: "KOLKATA", fleet: "900+", vol: "60T", sla: "99.2%" },
     { city: "AHMEDABAD", fleet: "1100+", vol: "75T", sla: "99.3%" },
+    { city: "JAIPUR", fleet: "600+", vol: "40T", sla: "98.5%" },
+    { city: "LUCKNOW", fleet: "550+", vol: "35T", sla: "98.2%" },
+    { city: "INDORE", fleet: "400+", vol: "30T", sla: "98.0%" },
+    { city: "NAGPUR", fleet: "450+", vol: "32T", sla: "98.4%" },
+    { city: "CHANDIGARH", fleet: "350+", vol: "25T", sla: "99.0%" },
   ];
 
   const currentTime = new Date().toLocaleTimeString("en-US", {
@@ -80,7 +85,9 @@ const HubsPage = () => {
 
                 <div className="flex items-center gap-3 mb-4">
                   <MapPin className="w-6 h-6 text-[#FF8C00]" />
-                  <h3 className="text-xl font-black uppercase">{hub.city}</h3>
+                  <h3 className="text-xl font-black uppercase text-ellipsis overflow-hidden whitespace-nowrap">
+                    {hub.city}
+                  </h3>
                 </div>
 
                 <div className="space-y-2 bg-gray-50 border-2 border-black p-3 font-mono text-xs font-bold">
@@ -115,19 +122,19 @@ const HubsPage = () => {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              "JAIPUR",
-              "LUCKNOW",
-              "INDORE",
-              "CHANDIGARH",
               "KOCHI",
               "VADODARA",
+              "PATNA",
+              "BHUBANESWAR",
+              "RAIPUR",
+              "GUWAHATI",
             ].map((city) => (
               <div
                 key={city}
                 className="border-4 border-dashed border-gray-300 bg-gray-50 p-4 text-center"
               >
                 <p className="font-black text-gray-400 uppercase">{city}</p>
-                <p className="text-xs font-bold text-gray-400 mt-1">Q2 2026</p>
+                <p className="text-xs font-bold text-gray-400 mt-1">Q3 2026</p>
               </div>
             ))}
           </div>
