@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import NeoLayout from "@/components/neo/NeoLayout";
 import NeoCard from "@/components/neo/NeoCard";
 import NeoButton from "@/components/neo/NeoButton";
+import { DashboardSkeleton } from "@/components/neo/DashboardSkeleton";
 import {
   Briefcase,
   Plus,
@@ -269,278 +270,288 @@ const ClientDashboardPage = () => {
         <div className="container mx-auto px-6 py-8">
           {/* Dashboard View */}
           {activeTab === "dashboard" && (
-            <div className="space-y-8 animate-in fade-in duration-500">
-              {/* Quick Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <NeoCard className="bg-black text-white border-white">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="p-2 bg-white/20 rounded-lg">
-                      <Package className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-bold bg-[#FF8C00] text-black px-2 py-1 rounded">
-                      LIVE
-                    </span>
-                  </div>
-                  <div className="text-4xl font-black mb-1">
-                    {shipments.length}
-                  </div>
-                  <div className="text-sm font-medium text-gray-400">
-                    Active Shipments
-                  </div>
-                </NeoCard>
-
-                <NeoCard className="bg-white">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="p-2 bg-gray-100 border-2 border-black rounded-lg">
-                      <TrendingUp className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-bold text-green-600">
-                      ↑ 12%
-                    </span>
-                  </div>
-                  <div className="text-4xl font-black mb-1">₹45k</div>
-                  <div className="text-sm font-medium text-gray-500">
-                    Spend this Month
-                  </div>
-                </NeoCard>
-
-                <NeoCard className="bg-white">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="p-2 bg-gray-100 border-2 border-black rounded-lg">
-                      <CheckCircle className="w-6 h-6" />
-                    </div>
-                  </div>
-                  <div className="text-4xl font-black mb-1">100%</div>
-                  <div className="text-sm font-medium text-gray-500">
-                    On-Time Delivery Rate
-                  </div>
-                </NeoCard>
-
-                <NeoCard className="bg-[#FF8C00] border-black">
-                  <div
-                    className="flex flex-col h-full justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform"
-                    onClick={() => changeTab("new-booking")}
-                  >
-                    <div className="bg-black text-white p-3 rounded-full mb-2">
-                      <Plus className="w-6 h-6" />
-                    </div>
-                    <div className="font-black text-xl uppercase">
-                      Quick Book
-                    </div>
-                  </div>
-                </NeoCard>
-              </div>
-
-              {/* Active Shipments Table */}
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-3xl font-black uppercase">
-                    Active Shipments
-                  </h2>
-                  <button
-                    className="font-bold underline"
-                    onClick={() => changeTab("shipments")}
-                  >
-                    View All
-                  </button>
-                </div>
-                <div className="grid gap-4">
-                  {shipments.map((shipment) => (
-                    <NeoCard
-                      key={shipment.id}
-                      className="flex flex-col md:flex-row justify-between items-center gap-6 p-6 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-shadow bg-white"
-                    >
-                      <div className="flex items-center gap-4 w-full md:w-auto">
-                        <div className="p-4 bg-gray-100 border-2 border-black">
-                          <Truck className="w-8 h-8" />
+            <>
+              {loading ? (
+                <DashboardSkeleton />
+              ) : (
+                <div className="space-y-8 animate-in fade-in duration-500">
+                  {/* Quick Stats */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <NeoCard className="bg-black text-white border-white">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="p-2 bg-white/20 rounded-lg">
+                          <Package className="w-6 h-6" />
                         </div>
-                        <div>
-                          <h3 className="text-xl font-black">{shipment.id}</h3>
-                          <p className="text-sm font-bold text-gray-500">
-                            {shipment.items}
-                          </p>
-                        </div>
+                        <span className="text-xs font-bold bg-[#FF8C00] text-black px-2 py-1 rounded">
+                          LIVE
+                        </span>
                       </div>
-
-                      <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-start">
-                        <div className="text-center md:text-left">
-                          <div className="text-xs font-bold text-gray-400 uppercase">
-                            Origin
-                          </div>
-                          <div className="font-black text-lg">
-                            {shipment.origin}
-                          </div>
-                        </div>
-                        <ArrowRight className="w-6 h-6 text-gray-300" />
-                        <div className="text-center md:text-left">
-                          <div className="text-xs font-bold text-gray-400 uppercase">
-                            Destination
-                          </div>
-                          <div className="font-black text-lg">
-                            {shipment.destination}
-                          </div>
-                        </div>
+                      <div className="text-4xl font-black mb-1">
+                        {shipments.length}
                       </div>
-
-                      <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <div
-                              className={`w-2 h-2 rounded-full animate-pulse ${shipment.status === "SEARCHING_DRIVER" ? "bg-orange-500" : "bg-green-500"}`}
-                            ></div>
-                            <span className="text-xs font-black uppercase tracking-wider">
-                              {shipment.status.replace("_", " ")}
-                            </span>
-                          </div>
-                          <div className="text-sm font-medium">
-                            ETA: {shipment.eta}
-                          </div>
-                        </div>
-
-                        <NeoButton
-                          variant="secondary"
-                          className="px-4 py-2 text-sm"
-                          onClick={() => setActiveTracking(shipment)}
-                        >
-                          Track
-                        </NeoButton>
+                      <div className="text-sm font-medium text-gray-400">
+                        Active Shipments
                       </div>
                     </NeoCard>
-                  ))}
-                  {shipments.length === 0 && (
-                    <div className="text-center py-10 opacity-50 font-bold uppercase">
-                      No active shipments
+
+                    <NeoCard className="bg-white">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="p-2 bg-gray-100 border-2 border-black rounded-lg">
+                          <TrendingUp className="w-6 h-6" />
+                        </div>
+                        <span className="text-xs font-bold text-green-600">
+                          ↑ 12%
+                        </span>
+                      </div>
+                      <div className="text-4xl font-black mb-1">₹45k</div>
+                      <div className="text-sm font-medium text-gray-500">
+                        Spend this Month
+                      </div>
+                    </NeoCard>
+
+                    <NeoCard className="bg-white">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="p-2 bg-gray-100 border-2 border-black rounded-lg">
+                          <CheckCircle className="w-6 h-6" />
+                        </div>
+                      </div>
+                      <div className="text-4xl font-black mb-1">100%</div>
+                      <div className="text-sm font-medium text-gray-500">
+                        On-Time Delivery Rate
+                      </div>
+                    </NeoCard>
+
+                    <NeoCard className="bg-[#FF8C00] border-black">
+                      <div
+                        className="flex flex-col h-full justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform"
+                        onClick={() => changeTab("new-booking")}
+                      >
+                        <div className="bg-black text-white p-3 rounded-full mb-2">
+                          <Plus className="w-6 h-6" />
+                        </div>
+                        <div className="font-black text-xl uppercase">
+                          Quick Book
+                        </div>
+                      </div>
+                    </NeoCard>
+                  </div>
+
+                  {/* Active Shipments Table */}
+                  <div>
+                    <div className="flex justify-between items-center mb-6">
+                      <h2 className="text-3xl font-black uppercase">
+                        Active Shipments
+                      </h2>
+                      <button
+                        className="font-bold underline"
+                        onClick={() => changeTab("shipments")}
+                      >
+                        View All
+                      </button>
+                    </div>
+                    <div className="grid gap-4">
+                      {shipments.map((shipment) => (
+                        <NeoCard
+                          key={shipment.id}
+                          className="flex flex-col md:flex-row justify-between items-center gap-6 p-6 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-shadow bg-white"
+                        >
+                          <div className="flex items-center gap-4 w-full md:w-auto">
+                            <div className="p-4 bg-gray-100 border-2 border-black">
+                              <Truck className="w-8 h-8" />
+                            </div>
+                            <div>
+                              <h3 className="text-xl font-black">
+                                {shipment.id}
+                              </h3>
+                              <p className="text-sm font-bold text-gray-500">
+                                {shipment.items}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-start">
+                            <div className="text-center md:text-left">
+                              <div className="text-xs font-bold text-gray-400 uppercase">
+                                Origin
+                              </div>
+                              <div className="font-black text-lg">
+                                {shipment.origin}
+                              </div>
+                            </div>
+                            <ArrowRight className="w-6 h-6 text-gray-300" />
+                            <div className="text-center md:text-left">
+                              <div className="text-xs font-bold text-gray-400 uppercase">
+                                Destination
+                              </div>
+                              <div className="font-black text-lg">
+                                {shipment.destination}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
+                            <div>
+                              <div className="flex items-center gap-2 mb-1">
+                                <div
+                                  className={`w-2 h-2 rounded-full animate-pulse ${shipment.status === "SEARCHING_DRIVER" ? "bg-orange-500" : "bg-green-500"}`}
+                                ></div>
+                                <span className="text-xs font-black uppercase tracking-wider">
+                                  {shipment.status.replace("_", " ")}
+                                </span>
+                              </div>
+                              <div className="text-sm font-medium">
+                                ETA: {shipment.eta}
+                              </div>
+                            </div>
+
+                            <NeoButton
+                              variant="secondary"
+                              className="px-4 py-2 text-sm"
+                              onClick={() => setActiveTracking(shipment)}
+                            >
+                              Track
+                            </NeoButton>
+                          </div>
+                        </NeoCard>
+                      ))}
+                      {shipments.length === 0 && (
+                        <div className="text-center py-10 opacity-50 font-bold uppercase">
+                          No active shipments
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Tracking Modal */}
+                  {activeTracking && (
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                      <div className="bg-white border-4 border-black p-6 w-full max-w-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in zoom-in duration-300 relative">
+                        <button
+                          onClick={() => setActiveTracking(null)}
+                          className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full"
+                        >
+                          <div className="w-6 h-6 flex items-center justify-center font-black">
+                            X
+                          </div>
+                        </button>
+
+                        <h3 className="text-2xl font-black uppercase mb-6 flex items-center gap-2">
+                          <MapPin className="w-6 h-6" /> Tracking Shipment
+                        </h3>
+
+                        <div className="space-y-6">
+                          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg border-2 border-dashed border-gray-300">
+                            <div>
+                              <div className="text-xs font-bold text-gray-400 uppercase">
+                                Current Status
+                              </div>
+                              <div className="text-xl font-black text-[#FF8C00]">
+                                {activeTracking.status.replace("_", " ")}
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-xs font-bold text-gray-400 uppercase">
+                                Estimated Arrival
+                              </div>
+                              <div className="text-lg font-bold">
+                                {activeTracking.eta}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="relative pl-8 border-l-4 border-gray-200 space-y-8">
+                            <div className="relative">
+                              <div className="absolute -left-[38px] bg-black text-white p-1 rounded-full border-4 border-white">
+                                <Truck className="w-4 h-4" />
+                              </div>
+                              <div className="font-bold text-sm text-gray-500">
+                                Current Location
+                              </div>
+                              <div className="font-black text-lg">
+                                Crossing {activeTracking.origin} City Limits
+                              </div>
+                              <div className="text-xs font-bold text-gray-400">
+                                Just now
+                              </div>
+                            </div>
+                            <div className="relative opacity-50">
+                              <div className="absolute -left-[38px] bg-gray-300 text-white p-1 rounded-full border-4 border-white">
+                                <MapPin className="w-4 h-4" />
+                              </div>
+                              <div className="font-bold text-sm text-gray-500">
+                                Destination
+                              </div>
+                              <div className="font-black text-lg">
+                                {activeTracking.destination} Warehouse
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-4 pt-4 border-t-2 border-gray-100">
+                            <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center font-bold border-2 border-black">
+                              {activeTracking.driver.charAt(0)}
+                            </div>
+                            <div>
+                              <div className="text-sm font-bold text-gray-400 uppercase">
+                                Driver
+                              </div>
+                              <div className="font-black text-lg">
+                                {activeTracking.driver}
+                              </div>
+                            </div>
+                            <NeoButton className="ml-auto" size="sm">
+                              Call Driver
+                            </NeoButton>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )}
-                </div>
-              </div>
 
-              {/* Tracking Modal */}
-              {activeTracking && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                  <div className="bg-white border-4 border-black p-6 w-full max-w-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in zoom-in duration-300 relative">
-                    <button
-                      onClick={() => setActiveTracking(null)}
-                      className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full"
-                    >
-                      <div className="w-6 h-6 flex items-center justify-center font-black">
-                        X
-                      </div>
-                    </button>
-
-                    <h3 className="text-2xl font-black uppercase mb-6 flex items-center gap-2">
-                      <MapPin className="w-6 h-6" /> Tracking Shipment
-                    </h3>
-
-                    <div className="space-y-6">
-                      <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg border-2 border-dashed border-gray-300">
-                        <div>
-                          <div className="text-xs font-bold text-gray-400 uppercase">
-                            Current Status
-                          </div>
-                          <div className="text-xl font-black text-[#FF8C00]">
-                            {activeTracking.status.replace("_", " ")}
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-xs font-bold text-gray-400 uppercase">
-                            Estimated Arrival
-                          </div>
-                          <div className="text-lg font-bold">
-                            {activeTracking.eta}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="relative pl-8 border-l-4 border-gray-200 space-y-8">
-                        <div className="relative">
-                          <div className="absolute -left-[38px] bg-black text-white p-1 rounded-full border-4 border-white">
-                            <Truck className="w-4 h-4" />
-                          </div>
-                          <div className="font-bold text-sm text-gray-500">
-                            Current Location
-                          </div>
-                          <div className="font-black text-lg">
-                            Crossing {activeTracking.origin} City Limits
-                          </div>
-                          <div className="text-xs font-bold text-gray-400">
-                            Just now
-                          </div>
-                        </div>
-                        <div className="relative opacity-50">
-                          <div className="absolute -left-[38px] bg-gray-300 text-white p-1 rounded-full border-4 border-white">
-                            <MapPin className="w-4 h-4" />
-                          </div>
-                          <div className="font-bold text-sm text-gray-500">
-                            Destination
-                          </div>
-                          <div className="font-black text-lg">
-                            {activeTracking.destination} Warehouse
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-4 pt-4 border-t-2 border-gray-100">
-                        <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center font-bold border-2 border-black">
-                          {activeTracking.driver.charAt(0)}
-                        </div>
-                        <div>
-                          <div className="text-sm font-bold text-gray-400 uppercase">
-                            Driver
-                          </div>
-                          <div className="font-black text-lg">
-                            {activeTracking.driver}
-                          </div>
-                        </div>
-                        <NeoButton className="ml-auto" size="sm">
-                          Call Driver
-                        </NeoButton>
-                      </div>
+                  {/* Recent History */}
+                  <div>
+                    <h2 className="text-3xl font-black uppercase mb-6">
+                      Recent History
+                    </h2>
+                    <div className="bg-white border-4 border-black p-4">
+                      <table className="w-full text-left">
+                        <thead>
+                          <tr className="border-b-4 border-black text-gray-500 text-sm uppercase">
+                            <th className="pb-4 font-black">ID</th>
+                            <th className="pb-4 font-black">Route</th>
+                            <th className="pb-4 font-black">Date</th>
+                            <th className="pb-4 font-black">Status</th>
+                            <th className="pb-4 font-black text-right">Cost</th>
+                          </tr>
+                        </thead>
+                        <tbody className="font-bold">
+                          {recentHistory.map((item) => (
+                            <tr
+                              key={item.id}
+                              className="border-b-2 border-gray-100 last:border-0 hover:bg-gray-50"
+                            >
+                              <td className="py-4">{item.id}</td>
+                              <td className="py-4">
+                                {item.origin} → {item.destination}
+                              </td>
+                              <td className="py-4 text-gray-500">
+                                {item.date}
+                              </td>
+                              <td className="py-4">
+                                <span className="bg-gray-200 px-2 py-1 text-xs">
+                                  {item.status}
+                                </span>
+                              </td>
+                              <td className="py-4 text-right">{item.cost}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               )}
-
-              {/* Recent History */}
-              <div>
-                <h2 className="text-3xl font-black uppercase mb-6">
-                  Recent History
-                </h2>
-                <div className="bg-white border-4 border-black p-4">
-                  <table className="w-full text-left">
-                    <thead>
-                      <tr className="border-b-4 border-black text-gray-500 text-sm uppercase">
-                        <th className="pb-4 font-black">ID</th>
-                        <th className="pb-4 font-black">Route</th>
-                        <th className="pb-4 font-black">Date</th>
-                        <th className="pb-4 font-black">Status</th>
-                        <th className="pb-4 font-black text-right">Cost</th>
-                      </tr>
-                    </thead>
-                    <tbody className="font-bold">
-                      {recentHistory.map((item) => (
-                        <tr
-                          key={item.id}
-                          className="border-b-2 border-gray-100 last:border-0 hover:bg-gray-50"
-                        >
-                          <td className="py-4">{item.id}</td>
-                          <td className="py-4">
-                            {item.origin} → {item.destination}
-                          </td>
-                          <td className="py-4 text-gray-500">{item.date}</td>
-                          <td className="py-4">
-                            <span className="bg-gray-200 px-2 py-1 text-xs">
-                              {item.status}
-                            </span>
-                          </td>
-                          <td className="py-4 text-right">{item.cost}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+            </>
           )}
 
           {/* Invoices View (New) */}
