@@ -186,19 +186,26 @@ const HomePage = () => {
       </section>
 
       {/* Social Proof Section */}
-      <section className="py-20 px-6 container mx-auto bg-[#F4F4F5] border-y-4 border-black">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black uppercase mb-4">
-            Trusted By <span className="text-[#FF8C00]">Businesses</span>
-          </h2>
-          <p className="text-lg font-medium">
-            Join 500+ companies shipping with GTL
-          </p>
-        </div>
+      <section className="py-20 bg-[#F4F4F5] border-y-4 border-black">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-black uppercase mb-4">
+              Trusted By <span className="text-[#FF8C00]">Businesses</span>
+            </h2>
+            <p className="text-lg font-medium">
+              Join 500+ companies shipping with GTL
+            </p>
+          </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {["FLIPKART", "ZOMATO", "SWIGGY", "BIGBASKET", "AMAZON", "DUNZO"].map(
-            (company, index) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {[
+              "FLIPKART",
+              "ZOMATO",
+              "SWIGGY",
+              "BIGBASKET",
+              "AMAZON",
+              "DUNZO",
+            ].map((company, index) => (
               <div
                 key={index}
                 className="bg-white border-4 border-black p-6 flex items-center justify-center h-24 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all"
@@ -207,20 +214,19 @@ const HomePage = () => {
                   {company}
                 </span>
               </div>
-            ),
-          )}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Features / Locations */}
       <section className="py-20 bg-black text-white border-t-4 border-black">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b-4 border-gray-700 pb-6">
-            <h2 className="text-5xl md:text-6xl font-black uppercase">
-              Operating <br />
-              <span className="text-[#FF8C00]">Hubs</span>
+          <div className="text-center mb-12 border-b-4 border-gray-700 pb-6">
+            <h2 className="text-5xl md:text-6xl font-black uppercase mb-6">
+              Operating <span className="text-[#FF8C00]">Hubs</span>
             </h2>
-            <div className="text-right mt-4 md:mt-0">
+            <div className="flex justify-center">
               <NeoButton variant="primary" onClick={() => navigate("/hubs")}>
                 VIEW ALL HUBS <ArrowRight className="w-4 h-4" />
               </NeoButton>
