@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
+import { fetchClientShipments, createShipment, getProfile } from "@/lib/api";
 import NeoLayout from "@/components/neo/NeoLayout";
 import NeoCard from "@/components/neo/NeoCard";
 import NeoButton from "@/components/neo/NeoButton";
@@ -92,6 +94,10 @@ const CityAutocomplete = ({ label, value, onChange, placeholder }) => {
 const ClientDashboardPage = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [shipments, setShipments] = useState([]);
+  const [companyName, setCompanyName] = useState("Loading...");
 
   // Sync tab state with URL params
   const tabFromUrl = searchParams.get("tab") || "dashboard";
@@ -103,31 +109,35 @@ const ClientDashboardPage = () => {
     setSearchParams({ tab });
   };
 
-  const [companyName, setCompanyName] = useState(
-    localStorage.getItem("clientCompanyName") || "Acme Corp",
-  );
+  // Fetch Real Data
+  useEffect(() => {
+    const loadData = async () => {
+      if (!user) return;
 
-  // Mock State for Shipments
-  const [shipments, setShipments] = useState([
-    {
-      id: "SHP-001",
-      origin: "MUMBAI",
-      destination: "PUNE",
-      status: "IN_TRANSIT",
-      eta: "4 Hours",
-      items: "Electronics",
-      driver: "Rajesh K.",
-    },
-    {
-      id: "SHP-004",
-      origin: "DELHI NCR",
-      destination: "JAIPUR",
-      status: "PICKED_UP",
-      eta: "Tomorrow",
-      items: "Textiles",
-      driver: "Vikram S.",
-    },
-  ]);
+      try {
+        setLoading(true);
+        // 1. Fetch Shipments
+        const data = await fetchClientShipments(user.id);
+        setShipments(data || []);
+
+        // 2. Fetch Profile for Company Name
+        const profile = await getProfile(user.id);
+        if (profile?.company_name) {
+          setCompanyName(profile.company_name);
+          localStorage.setItem("clientCompanyName", profile.company_name);
+        } else {
+          setCompanyName(user.email.split("@")[0]);
+        }
+      } catch (error) {
+        toast.error("Failed to load dashboard data");
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [user]);
 
   // Calculate Stats
   const pendingShipments = shipments.filter(
@@ -152,9 +162,15 @@ const ClientDashboardPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [activeTracking, setActiveTracking] = useState(null);
 
-  const handleBookShipment = (e) => {
+  const handleBookShipment = async (e) => {
     e.preventDefault();
     setBookingLoading(true);
+
+    if (!user) {
+      toast.error("Please login first");
+      setBookingLoading(false);
+      return;
+    }
 
     // Validate
     if (
@@ -171,24 +187,31 @@ const ClientDashboardPage = () => {
       return;
     }
 
-    // Simulate API Call
-    setTimeout(() => {
-      const newShipment = {
-        id: `SHP-${Math.floor(Math.random() * 10000)}`,
-        origin: newBooking.pickup,
-        destination: newBooking.drop,
+    try {
+      // Create Shipment Object
+      const shipmentData = {
+        client_id: user.id,
+        pickup_location: newBooking.pickup,
+        drop_location: newBooking.drop,
         status: "SEARCHING_DRIVER",
-        eta: "Calculating...",
-        items: newBooking.items,
-        driver: "Assigning...",
+        vehicle_type: newBooking.vehicle,
+        cargo_details: {
+          items: newBooking.items,
+          weight: newBooking.weight,
+          dimensions: newBooking.dimensions,
+        },
+        price: 1500, // Mock price calculation
       };
 
+      // Call API
+      const newShipment = await createShipment(shipmentData);
+
+      // Update State
       setShipments([newShipment, ...shipments]);
-      setBookingLoading(false);
 
       // Show Success Toast
       toast.success("Shipment Booked!", {
-        description: `Order ${newShipment.id} created. Finding a driver...`,
+        description: `Order ${newShipment.id.slice(0, 8)}... created. Finding a driver...`,
       });
 
       // Reset form and navigate
@@ -201,7 +224,11 @@ const ClientDashboardPage = () => {
         vehicle: "",
       });
       changeTab("dashboard");
-    }, 1500);
+    } catch (error) {
+      toast.error("Booking Failed");
+    } finally {
+      setBookingLoading(false);
+    }
   };
 
   const recentHistory = [
