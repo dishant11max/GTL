@@ -90,7 +90,18 @@ const CityAutocomplete = ({ label, value, onChange, placeholder }) => {
 
 const ClientDashboardPage = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("dashboard"); // dashboard | new-booking | shipments | invoices
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Sync tab state with URL params
+  const tabFromUrl = searchParams.get("tab") || "dashboard";
+  const [activeTab, setActiveTab] = useState(tabFromUrl);
+
+  // Update URL when tab changes
+  const changeTab = (tab) => {
+    setActiveTab(tab);
+    setSearchParams({ tab });
+  };
+
   const [companyName, setCompanyName] = useState(
     localStorage.getItem("clientCompanyName") || "Acme Corp",
   );
@@ -188,7 +199,7 @@ const ClientDashboardPage = () => {
         dimensions: "",
         vehicle: "",
       });
-      setActiveTab("dashboard");
+      changeTab("dashboard");
     }, 1500);
   };
 
@@ -228,7 +239,7 @@ const ClientDashboardPage = () => {
             </div>
             <div className="flex gap-3">
               <NeoButton
-                onClick={() => setActiveTab("new-booking")}
+                onClick={() => changeTab("new-booking")}
                 className={
                   activeTab === "new-booking"
                     ? "ring-2 ring-offset-2 ring-black"
@@ -239,7 +250,7 @@ const ClientDashboardPage = () => {
               </NeoButton>
               <NeoButton
                 variant="secondary"
-                onClick={() => setActiveTab("invoices")}
+                onClick={() => changeTab("invoices")}
                 className={
                   activeTab === "invoices"
                     ? "ring-2 ring-offset-2 ring-black"
@@ -308,7 +319,7 @@ const ClientDashboardPage = () => {
                 <NeoCard className="bg-[#FF8C00] border-black">
                   <div
                     className="flex flex-col h-full justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform"
-                    onClick={() => setActiveTab("new-booking")}
+                    onClick={() => changeTab("new-booking")}
                   >
                     <div className="bg-black text-white p-3 rounded-full mb-2">
                       <Plus className="w-6 h-6" />
@@ -328,7 +339,7 @@ const ClientDashboardPage = () => {
                   </h2>
                   <button
                     className="font-bold underline"
-                    onClick={() => setActiveTab("shipments")}
+                    onClick={() => changeTab("shipments")}
                   >
                     View All
                   </button>
@@ -536,7 +547,7 @@ const ClientDashboardPage = () => {
           {activeTab === "invoices" && (
             <div className="max-w-6xl mx-auto animate-in zoom-in duration-300">
               <button
-                onClick={() => setActiveTab("dashboard")}
+                onClick={() => changeTab("dashboard")}
                 className="mb-6 flex items-center font-bold hover:underline"
               >
                 <ArrowRight className="w-4 h-4 mr-2 rotate-180" /> Back to
@@ -600,7 +611,7 @@ const ClientDashboardPage = () => {
           {activeTab === "new-booking" && (
             <div className="max-w-4xl mx-auto animate-in zoom-in duration-300">
               <button
-                onClick={() => setActiveTab("dashboard")}
+                onClick={() => changeTab("dashboard")}
                 className="mb-6 flex items-center font-bold hover:underline"
               >
                 <ArrowRight className="w-4 h-4 mr-2 rotate-180" /> Back to
@@ -751,7 +762,7 @@ const ClientDashboardPage = () => {
                     <NeoButton
                       type="button"
                       variant="secondary"
-                      onClick={() => setActiveTab("dashboard")}
+                      onClick={() => changeTab("dashboard")}
                     >
                       Cancel
                     </NeoButton>
