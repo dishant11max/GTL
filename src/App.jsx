@@ -11,8 +11,10 @@ import AdminLoginPage from "@/pages/AdminLoginPage";
 import ClientLoginPage from "@/pages/ClientLoginPage";
 import ClientDashboardPage from "@/pages/ClientDashboardPage";
 import ContactPage from "@/pages/ContactPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 import ScrollToTop from "@/components/ScrollToTop";
 import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   return (
@@ -35,7 +37,9 @@ function App() {
           <Route path="/admin-login" element={<AdminLoginPage />} />
           <Route path="/client-login" element={<ClientLoginPage />} />
           <Route path="/client-dashboard" element={<ClientDashboardPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <Toaster />
       </Router>
     </AuthProvider>
   );

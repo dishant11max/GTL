@@ -6,32 +6,31 @@ import {
   OctagonX,
   TriangleAlert,
 } from "lucide-react";
-import { useTheme } from "next-themes";
 import { Toaster as Sonner } from "sonner";
 
 const Toaster = ({ ...props }) => {
-  const { theme = "system" } = useTheme();
-
   return (
     <Sonner
-      theme={theme}
+      theme="light"
+      position="top-right"
       className="toaster group"
       icons={{
-        success: <CircleCheck className="h-4 w-4" />,
-        info: <Info className="h-4 w-4" />,
-        warning: <TriangleAlert className="h-4 w-4" />,
-        error: <OctagonX className="h-4 w-4" />,
-        loading: <LoaderCircle className="h-4 w-4 animate-spin" />,
+        success: <CircleCheck className="h-5 w-5 text-green-600" />,
+        info: <Info className="h-5 w-5 text-blue-600" />,
+        warning: <TriangleAlert className="h-5 w-5 text-yellow-600" />,
+        error: <OctagonX className="h-5 w-5 text-red-600" />,
+        loading: <LoaderCircle className="h-5 w-5 animate-spin" />,
       }}
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-[hsl(var(--border))] group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
+            "group toast bg-white text-black border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-bold",
+          title: "font-black uppercase text-sm",
+          description: "text-gray-600 font-medium",
           actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
+            "bg-[#FF8C00] text-black font-black border-2 border-black hover:bg-black hover:text-white",
           cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+            "bg-gray-200 text-black font-bold border-2 border-black",
         },
       }}
       {...props}
@@ -40,5 +39,3 @@ const Toaster = ({ ...props }) => {
 };
 
 export { Toaster };
-
-

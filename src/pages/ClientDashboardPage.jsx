@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 import NeoLayout from "@/components/neo/NeoLayout";
 import NeoCard from "@/components/neo/NeoCard";
 import NeoButton from "@/components/neo/NeoButton";
@@ -150,7 +151,10 @@ const ClientDashboardPage = () => {
       !newBooking.items ||
       !newBooking.vehicle
     ) {
-      alert("Please fill all required fields");
+      toast.error("Missing Fields", {
+        description:
+          "Please fill all required fields: pickup, drop, items, and vehicle.",
+      });
       setBookingLoading(false);
       return;
     }
@@ -170,20 +174,21 @@ const ClientDashboardPage = () => {
       setShipments([newShipment, ...shipments]);
       setBookingLoading(false);
 
-      // Show Success Modal
-      setShowSuccess(true);
-      setTimeout(() => {
-        setShowSuccess(false);
-        setNewBooking({
-          pickup: "",
-          drop: "",
-          items: "",
-          weight: "",
-          dimensions: "",
-          vehicle: "",
-        });
-        setActiveTab("dashboard");
-      }, 1500);
+      // Show Success Toast
+      toast.success("Shipment Booked!", {
+        description: `Order ${newShipment.id} created. Finding a driver...`,
+      });
+
+      // Reset form and navigate
+      setNewBooking({
+        pickup: "",
+        drop: "",
+        items: "",
+        weight: "",
+        dimensions: "",
+        vehicle: "",
+      });
+      setActiveTab("dashboard");
     }, 1500);
   };
 
